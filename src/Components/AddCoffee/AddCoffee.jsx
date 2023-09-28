@@ -17,7 +17,7 @@ const AddCoffee = () => {
         const details = form.details.value;
         const photo = form.photo.value;
 
-        const newCoffee = {name, quantity, supplire, taste, category, details, photo}
+        const newCoffee = {name, quantity, supplire, taste, category, details, photo};
 
 
         console.log(newCoffee);
