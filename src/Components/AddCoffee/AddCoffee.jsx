@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
+import Swal from 'sweetalert2'
 
 const AddCoffee = () => {
 
@@ -17,10 +18,36 @@ const AddCoffee = () => {
         const photo = form.photo.value;
 
         const newCoffee = {name, quantity, supplire, taste, category, details, photo}
+
+
         console.log(newCoffee);
+
+        // sent data to the server
+
+        fetch('http://localhost:5000/coffee', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(newCoffee)
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            if(data.insertedId){
+                Swal.fire({
+                    title: 'success!',
+                    text: 'User Added Successfully',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                  })
+            }
+        })
+
     }
 
     // https://ibb.co/g7BfpQv
+    // https://i.ibb.co/nLGDVc3/Rectangle-16.png
 
     return (
 
@@ -39,7 +66,7 @@ const AddCoffee = () => {
                     </div>
                     <div className="form-control md:w-1/2 ml-4">
                         <label className="label">
-                            <span className="label-text">Your Email</span>
+                            <span className="label-text">Available Quantity</span>
                         </label>
                         <label className="input-group">
                             <input type="text" name='quantity' className="input input-bordered w-full bg-[#ffff]" />
